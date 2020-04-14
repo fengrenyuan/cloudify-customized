@@ -1,0 +1,22 @@
+plugins:
+
+  hello_plugin:
+    executor: central_deployment_agent
+    package_name: hello-plugin
+    package_version: '1.0.0'
+
+node_types:
+
+  cloudify.Hello:
+    derived_from: cloudify.nodes.Root
+    properties:
+      target:
+        description: >
+          Target of hello.
+        default: 'world'
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+            implementation: hello_plugin.plugin.tasks.start_hello
+        stop:
+            implementation: hello_plugin.plugin.tasks.stop_hello
