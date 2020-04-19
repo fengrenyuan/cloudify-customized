@@ -8,7 +8,7 @@ headers = {
 	'Tenant': 'default_tenant',
 	'Content-Type':'application/json'
 }
-username = 'lzy'
+username = 'admin'
 password = 'admin'
 
 def get_token(cfy_host):
@@ -17,4 +17,4 @@ def get_token(cfy_host):
     resp = requests.get(url, auth=HTTPBasicAuth(username,password), headers=headers)
     print(resp.text)
 
-get_token('192.168.63.130')
+get_token('192.168.174.120')
