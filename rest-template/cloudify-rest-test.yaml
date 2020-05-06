@@ -1,0 +1,39 @@
+tosca_definitions_version: cloudify_dsl_1_3
+
+imports:
+  - http://www.getcloudify.org/spec/cloudify/5.0.0/types.yaml
+  - plugin:cloudify-utilities-plugin
+
+inputs:
+
+  mepm_ip:
+    description: >
+      Mepm IP address
+    default: "192.168.63.130"
+  vim_name:
+    description: >
+      Vim name
+    default: "admin"
+
+node_templates:
+
+  vim:
+    type: cloudify.rest.Requests
+    properties:
+      hosts: [{ get_input: mepm_ip }]
+      port: 80
+      verify: false
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+            template_file: templates/post-vim-template.yaml
+            params:
+              NAME: { get_input: vim_name }
+              TOKEN: { get_secret: mepm_token }
+        stop:
+          inputs:
+            template_file: templates/delete-vim-template.yaml
+            params:
+              NAME: { get_input: vim_name }
+              TOKEN: { get_secret: mepm_token }

@@ -1,0 +1,17 @@
+rest_calls:
+  - path: /api/v1/vims/{{ NAME }}
+    method: POST
+    headers:
+      Content-type: application/json
+      Tenant: default_tenant
+      Authentication-Token: "{{ TOKEN }}"
+    payload:
+        type: "openstack"
+        area_code: "010"
+        access_ip: "192.168.1.1"
+        access_port: "8080"
+        access_info: "{\"endpoint\":\"test\"}"
+        mepm_id: "test"
+        properties: "test"
+    response_format: json
+    recoverable_codes: [400]

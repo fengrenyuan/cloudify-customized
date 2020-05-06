@@ -1,0 +1,10 @@
+rest_calls:
+  - path: /api/v1/vims/{{ NAME }}
+    method: DELETE
+    headers:
+      Content-type: application/json
+      Tenant: default_tenant
+      Authentication-Token: "{{ TOKEN }}"
+    payload:
+    response_format: json
+    recoverable_codes: [400]
